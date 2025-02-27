@@ -136,18 +136,16 @@ void delete(LinkedList* list, Node* node) {
 /* Start Print */
 void printList(LinkedList* list, char* prefix, char* postfix, bool isEnter) {
 	Node* current = list->head;
-	if (!isEnter) {
-		while (current) {
-			printf("%s%d%s", prefix, current->data, postfix);
-			current = current->next;
-		}
+	while (current) {
+		if (!isEnter) 
+			printf("%s%d %s ", prefix, current->data, postfix);
+		else 
+			printf("%s %d %s\n", prefix, current->data, postfix);
+
+		current = current->next;
+	}
+
+	if (!isEnter) 
 		printf("NULL\n");
-	}
-	else {
-		while (current) {
-			printf("%s%d%s\n", prefix, current->data, postfix);
-			current = current->next;
-		}
-	}
 }
 /* End Print */

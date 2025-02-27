@@ -1,2 +1,2 @@
 default:
-	gcc main.c list.c
+	gcc test.c list.c
