@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include "list.h"
 
 int main() {
@@ -12,7 +13,7 @@ int main() {
 	push(list, 4);
 	push(list, 5);
 
-	printList(list);
+	printList(list, "", " -> ", false);
 
 	printf("Head -> %d\n", list->head->data);
 	printf("Tail -> %d\n", list->tail->data);
@@ -23,10 +24,10 @@ int main() {
 
 	// Delete
 	delete(list, m);
-	printList(list);
+	printList(list, "", " -> ", false);
 
 	pop(list);
-	printList(list);
+	printList(list, "", " -> ", false);
 	
 	free(list);
 	return 0;

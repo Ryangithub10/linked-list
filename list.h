@@ -1,6 +1,8 @@
 #ifndef LIST_H
 #define LIST_H
 
+#include <stdbool.h>
+
 // Node 
 typedef struct Node {
 	int data;
@@ -33,6 +35,6 @@ void shift(LinkedList* list);
 void delete(LinkedList* list, Node* node);
 
 // Printing
-void printList(LinkedList* list);
+void printList(LinkedList* list, char* prefix, char* postfix, bool isEnter);
 
 #endif
