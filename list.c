@@ -68,7 +68,7 @@ void push(LinkedList* list, int newData) {
 	}
 }
 
-void enqueue(LinkedList* list, int newData) {
+void add(LinkedList* list, int newData) {
 	if (!list->head && !list->tail) {
 		Node* newHead = newNode(newData);
 		newHead->next = list->head;
@@ -99,7 +99,7 @@ void pop(LinkedList* list) {
 	free(temp);
 }
 
-void dequeue(LinkedList* list) {
+void shift(LinkedList* list) {
 	Node* temp = list->head;
 	list->head = list->head->next;
 	free(temp);

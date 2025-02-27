@@ -23,13 +23,13 @@ Node* search(LinkedList* list, int target);
 Node* at(LinkedList* list, int index);
 
 // Insertion
+void add(LinkedList* list, int newData);
 void push(LinkedList* list, int newData);
-void enqueue(LinkedList* list, int newData);
 void insert(LinkedList* list, int index, int newData);
 
 // Deletion
 void pop(LinkedList* list);
-void dequeue(LinkedList* list);
+void shift(LinkedList* list);
 void delete(LinkedList* list, Node* node);
 
 // Printing
