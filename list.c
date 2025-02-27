@@ -84,6 +84,16 @@ void add(LinkedList* list, int newData) {
 		list->size++;
 	}
 }
+
+void insert(LinkedList* list, int index, int newData) {
+	Node* prev = at(list, index-1);
+	Node* target = prev->next;
+
+	Node* node = newNode(newData);
+
+	prev->next = node;
+	node->next = target;
+}
 /* End Insert */
 
 /* Start Deletion */
