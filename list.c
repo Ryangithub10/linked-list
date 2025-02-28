@@ -4,7 +4,7 @@
 
 /* Start Init */
 Node* newNode(int data) {
-	Node* node = (struct Node*)malloc(sizeof(struct Node));
+	Node* node = (Node*)malloc(sizeof(Node));
 
 	node->data = data;
 	node->next = NULL;
@@ -13,8 +13,7 @@ Node* newNode(int data) {
 }
 
 LinkedList* newList() {
-	LinkedList* list = 
-		(struct LinkedList*)malloc(sizeof(struct LinkedList));
+	LinkedList* list = (LinkedList*)malloc(sizeof(LinkedList));
 
 	list->head = NULL;
 	list->tail = NULL;
@@ -26,6 +25,11 @@ LinkedList* newList() {
 
 /* Start Search */
 Node* search(LinkedList* list, int target) {
+	if (!list->size) {
+		printf("List is Empty\n");
+		return NULL;
+	}
+
 	Node* current = list->head;
 
 	while (current) {
@@ -38,6 +42,11 @@ Node* search(LinkedList* list, int target) {
 }
 
 Node* at(LinkedList* list, int index) {
+	if (!list->size) {
+		printf("List is Empty\n");
+		return NULL;
+	}
+
 	Node* current = list->head;
 	
 	for (int i = 0; i < list->size; i++) {
@@ -46,43 +55,42 @@ Node* at(LinkedList* list, int index) {
 		current = current->next;
 	}
 
+	printf("You outbound the list size\n");
 	return NULL;
 }
 /* End Search */
 
 /* Start Insert */
 void push(LinkedList* list, int newData) {	
-	if (!list->head && !list->tail) {
-		Node* newTail = newNode(newData);
-		list->tail = newTail;
+	Node* newTail = newNode(newData);
+
+	if (!list->head) {
 		list->head = newTail;
-		list->size++;
+		list->tail = newTail;
 	}
 
 	else {
-		Node* newTail = newNode(newData);
 		Node* prev = list->tail;
 		list->tail = newTail;
 		prev->next = list->tail;
-		list->size++;
 	}
+
+	list->size++;
 }
 
 void add(LinkedList* list, int newData) {
-	if (!list->head && !list->tail) {
-		Node* newHead = newNode(newData);
+	Node* newHead = newNode(newData);
+
+	if (!list->head) {
 		newHead->next = list->head;
-		list->head = newHead;
 		list->tail = newHead;
-		list->size++;
 	}
 
-	else {
-		Node* newHead = newNode(newData);
+	else
 		newHead->next = list->head;
-		list->head = newHead;
-		list->size++;
-	}
+
+	list->head = newHead;
+	list->size++;
 }
 
 void insert(LinkedList* list, int index, int newData) {
@@ -93,6 +101,7 @@ void insert(LinkedList* list, int index, int newData) {
 
 	prev->next = node;
 	node->next = target;
+	list->size++;
 }
 /* End Insert */
 
@@ -106,56 +115,48 @@ void pop(LinkedList* list) {
 
 	list->tail = prev;
 	list->tail->next = NULL;
+	list->size--;
 	free(temp);
 }
 
 void shift(LinkedList* list) {
 	Node* temp = list->head;
 	list->head = list->head->next;
+	list->size--;
 	free(temp);
 }
 
-void delete(LinkedList* list, Node* node) {
-	if (!node) {
-		printf("null exception\n");
+void delete(LinkedList* list, int index) {
+	if (index == 0) {
+		shift(list);
 		return;
 	}
 
-	if (list->head == node) {
-		list->head = node->next;
-		free(node);
-		return;
-	}
-
+	Node* target = at(list, index);
 	Node* prev = list->head;
-	while (prev->next != node)
+
+	while (prev->next != target)
 		prev = prev->next;
 
-	if (node->next != NULL) {
-		prev->next = node->next;
-		free(node);
-	} 
-
-	else {
-		prev->next = NULL;
-		free(node);
-	}
+	prev->next = prev->next->next;
+	list->size--;
+	free(target);
 }
 /* End Deletion */
 
-/* Start Print */
-void printList(LinkedList* list, char* prefix, char* postfix, bool isEnter) {
+
+void printList(LinkedList* list) {
 	Node* current = list->head;
 	while (current) {
-		if (!isEnter) 
-			printf("%s%d %s ", prefix, current->data, postfix);
-		else 
-			printf("%s %d %s\n", prefix, current->data, postfix);
-
+		printf("%d -> ", current->data);
 		current = current->next;
 	}
-
-	if (!isEnter) 
-		printf("NULL\n");
+	printf("NULL\n");
 }
-/* End Print */
+
+void freeList(LinkedList* list) {
+	for (int i = 0; i < list->size; i++)
+		shift(list);
+
+	free(list);
+}
