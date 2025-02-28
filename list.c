@@ -122,6 +122,8 @@ void pop(LinkedList* list) {
 void shift(LinkedList* list) {
 	Node* temp = list->head;
 	list->head = list->head->next;
+	if (!list->head)
+		list->tail = NULL;
 	list->size--;
 	free(temp);
 }
@@ -155,7 +157,7 @@ void printList(LinkedList* list) {
 }
 
 void freeList(LinkedList* list) {
-	for (int i = 0; i < list->size; i++)
+	for (int i = 0; i <= list->size+2; i++)
 		shift(list);
 
 	free(list);
