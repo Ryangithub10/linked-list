@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include "list.h"
 
 /* Start Init */
@@ -110,11 +111,20 @@ void pop(LinkedList* list) {
 	Node* prev = list->head;
 	Node* temp = list->tail;
 
-	while (prev->next->next != NULL)
+    bool isOneNode = prev == temp;
+
+	while (prev->next != temp && !isOneNode)
 		prev = prev->next;
 
-	list->tail = prev;
-	list->tail->next = NULL;
+    if (!isOneNode) {
+	    list->tail = prev;
+	    list->tail->next = NULL;
+    } 
+    else {
+        list->tail = NULL;
+        list->head = NULL;
+    }
+
 	list->size--;
 	free(temp);
 }
