@@ -148,6 +148,11 @@ void delete(LinkedList* list, int index) {
 
 
 void printList(LinkedList* list) {
+    if (!list->size) {
+        printf("List is Empty\n");
+        return;
+    }
+
 	Node* current = list->head;
 	while (current) {
 		printf("%d -> ", current->data);
@@ -157,7 +162,7 @@ void printList(LinkedList* list) {
 }
 
 void freeList(LinkedList* list) {
-	for (int i = 0; i <= list->size+2; i++)
+	while (list->size)
 		shift(list);
 
 	free(list);
