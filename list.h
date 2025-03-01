@@ -1,6 +1,8 @@
 #ifndef LIST_H
 #define LIST_H
 
+// TODO template<> macro (int, float, string, struct)
+
 // Node 
 typedef struct Node {
 	int data;
@@ -33,6 +35,6 @@ void shift(LinkedList* list);
 void delete(LinkedList* list, int index);
 
 void printList(LinkedList* list);
-void freeList(LinkedList* list);
+void freeList(LinkedList* list); // De-Initialize
 
 #endif
