@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include "list.h"
+#include "../include/list.h"
 
 /* Start Init */
 Node* newNode(int data) {
@@ -138,6 +138,7 @@ void shift(LinkedList* list) {
 	free(temp);
 }
 
+// TODO make error handling if index is outbound
 void delete(LinkedList* list, int index) {
 	if (index == 0) {
 		shift(list);

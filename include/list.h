@@ -1,8 +1,6 @@
 #ifndef LIST_H
 #define LIST_H
 
-// TODO template<> macro (int, float, string, struct)
-
 // Node 
 typedef struct Node {
 	int data;
