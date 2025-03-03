@@ -111,19 +111,19 @@ void pop(LinkedList* list) {
 	Node* prev = list->head;
 	Node* temp = list->tail;
 
-    bool isOneNode = prev == temp;
+	bool isOneNode = prev == temp;
 
 	while (prev->next != temp && !isOneNode)
 		prev = prev->next;
 
-    if (!isOneNode) {
-	    list->tail = prev;
-	    list->tail->next = NULL;
-    } 
-    else {
-        list->tail = NULL;
-        list->head = NULL;
-    }
+	if (!isOneNode) {
+		list->tail = prev;
+		list->tail->next = NULL;
+	} 
+	else {
+		list->tail = NULL;
+		list->head = NULL;
+	}
 
 	list->size--;
 	free(temp);
@@ -159,10 +159,10 @@ void delete(LinkedList* list, int index) {
 
 
 void printList(LinkedList* list) {
-    if (!list->size) {
-        printf("List is Empty\n");
-        return;
-    }
+	if (!list->size) {
+		printf("List is Empty\n");
+		return;
+	}
 
 	Node* current = list->head;
 	while (current) {
