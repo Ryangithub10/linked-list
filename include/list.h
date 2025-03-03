@@ -18,6 +18,10 @@ typedef struct LinkedList {
 Node* newNode(int data);
 LinkedList* newList();
 
+// Getter
+int peek(LinkedList* list);
+int size(LinkedList* list);
+
 // Searching
 Node* search(LinkedList* list, int target);
 Node* at(LinkedList* list, int index);

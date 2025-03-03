@@ -24,10 +24,20 @@ LinkedList* newList() {
 }
 /* End Init */
 
+/* Start Getter */ 
+int peek(LinkedList* list) {
+    return list->tail->data;
+}
+
+int size(LinkedList* list) {
+    return list->size;
+}
+/* End Getter */
+
 /* Start Search */
 Node* search(LinkedList* list, int target) {
 	if (!list->size) {
-		printf("List is Empty\n");
+		fprintf(stderr, "[!] List is Empty\n");
 		return NULL;
 	}
 
@@ -44,7 +54,7 @@ Node* search(LinkedList* list, int target) {
 
 Node* at(LinkedList* list, int index) {
 	if (!list->size) {
-		printf("List is Empty\n");
+		fprintf(stderr, "[!] List is Empty\n");
 		return NULL;
 	}
 
@@ -56,7 +66,7 @@ Node* at(LinkedList* list, int index) {
 		current = current->next;
 	}
 
-	printf("You outbound the list size\n");
+	fprintf(stderr, "[!] You outbound the list\n");
 	return NULL;
 }
 /* End Search */
@@ -160,7 +170,7 @@ void delete(LinkedList* list, int index) {
 
 void printList(LinkedList* list) {
 	if (!list->size) {
-		printf("List is Empty\n");
+		fprintf(stderr, "[!] List is Empty\n");
 		return;
 	}
 
