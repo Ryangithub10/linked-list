@@ -26,7 +26,19 @@ LinkedList* newList() {
 
 /* Start Getter */ 
 int peek(LinkedList* list) {
+    if (list->size == 0) {
+        fprintf(stderr, "[err] List is Empty\n");
+        return -1;
+    }
     return list->tail->data;
+}
+
+int peep(LinkedList* list) {
+    if (list->size == 0) {
+        fprintf(stderr, "[err] List is Empty\n");
+        return -1;
+    }
+    return list->head->data;
 }
 
 int size(LinkedList* list) {
@@ -37,7 +49,7 @@ int size(LinkedList* list) {
 /* Start Search */
 Node* search(LinkedList* list, int target) {
 	if (!list->size) {
-		fprintf(stderr, "[!] List is Empty\n");
+		fprintf(stderr, "[err] List is Empty\n");
 		return NULL;
 	}
 
@@ -49,12 +61,13 @@ Node* search(LinkedList* list, int target) {
 		current = current->next;
 	}
 
+    fprintf(stderr, "[err] %d not in the list", target);
 	return NULL;
 }
 
 Node* at(LinkedList* list, int index) {
 	if (!list->size) {
-		fprintf(stderr, "[!] List is Empty\n");
+		fprintf(stderr, "[err] List is Empty\n");
 		return NULL;
 	}
 
@@ -66,7 +79,7 @@ Node* at(LinkedList* list, int index) {
 		current = current->next;
 	}
 
-	fprintf(stderr, "[!] You outbound the list\n");
+	fprintf(stderr, "[err] You outbound the list\n");
 	return NULL;
 }
 /* End Search */
@@ -105,14 +118,21 @@ void add(LinkedList* list, int newData) {
 }
 
 void insert(LinkedList* list, int index, int newData) {
-	Node* prev = at(list, index-1);
-	Node* target = prev->next;
+    if (index == 0) 
+        add(list, newData);
+    else if (index == list->size)
+        push(list, newData);
 
-	Node* node = newNode(newData);
+    else {
+        Node* prev = at(list, index-1);
+        Node* target = prev->next;
 
-	prev->next = node;
-	node->next = target;
-	list->size++;
+        Node* node = newNode(newData);
+
+        prev->next = node;
+        node->next = target;
+        list->size++;
+    }
 }
 /* End Insert */
 
@@ -170,7 +190,7 @@ void delete(LinkedList* list, int index) {
 
 void printList(LinkedList* list) {
 	if (!list->size) {
-		fprintf(stderr, "[!] List is Empty\n");
+		fprintf(stderr, "[err] List is Empty\n");
 		return;
 	}
 

@@ -20,6 +20,7 @@ LinkedList* newList();
 
 // Getter
 int peek(LinkedList* list);
+int peep(LinkedList* list);
 int size(LinkedList* list);
 
 // Searching
