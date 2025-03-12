@@ -7,6 +7,11 @@
 Node* newNode(int data) {
 	Node* node = (Node*)malloc(sizeof(Node));
 
+	if (!node) {
+		fprintf(stderr, "[err] Failed to allocate memory");
+		return NULL;
+	}
+
 	node->data = data;
 	node->next = NULL;
 	
@@ -15,6 +20,11 @@ Node* newNode(int data) {
 
 LinkedList* newList() {
 	LinkedList* list = (LinkedList*)malloc(sizeof(LinkedList));
+
+	if (!list) {
+		fprintf(stderr, "[err] Failed to allocate memory");
+		return NULL;
+	}
 
 	list->head = NULL;
 	list->tail = NULL;
@@ -25,24 +35,28 @@ LinkedList* newList() {
 /* End Init */
 
 /* Start Getter */ 
-int peek(LinkedList* list) {
-    if (list->size == 0) {
-        fprintf(stderr, "[err] List is Empty\n");
-        return -1;
-    }
-    return list->tail->data;
+int peekHead(LinkedList* list) {
+	if (!list || list->size == 0) {
+		fprintf(stderr, "[err] List is Empty/Undefined\n");
+		return -1;
+	}
+	return list->head->data;
 }
 
-int peep(LinkedList* list) {
-    if (list->size == 0) {
-        fprintf(stderr, "[err] List is Empty\n");
-        return -1;
-    }
-    return list->head->data;
+int peekTail(LinkedList* list) {
+	if (!list || list->size == 0) {
+		fprintf(stderr, "[err] List is Empty/Undefined\n");
+		return -1;
+	}
+	return list->tail->data;
 }
 
 int size(LinkedList* list) {
-    return list->size;
+	if (!list) {
+		fprintf(stderr, "[err] List is Undefined");
+		return -1;
+	}
+	return list->size;
 }
 /* End Getter */
 
@@ -61,31 +75,35 @@ Node* search(LinkedList* list, int target) {
 		current = current->next;
 	}
 
-    fprintf(stderr, "[err] %d not in the list", target);
+	fprintf(stderr, "[err] %d not in the list", target);
 	return NULL;
 }
 
-Node* at(LinkedList* list, int index) {
-	if (!list->size) {
-		fprintf(stderr, "[err] List is Empty\n");
+Node* at(LinkedList* list, unsigned int index) {
+	if (!list || list->size == 0) {
+		fprintf(stderr, "[err] List is Empty/Undefined\n");
+		return NULL;
+	}
+
+	if (index >= list->size) {
+		fprintf(stderr, "[err] you outbound the list size, the list size is %d", list->size);
 		return NULL;
 	}
 
 	Node* current = list->head;
-	
+
 	for (int i = 0; i < list->size; i++) {
 		if (i == index)
-			return current;
+			break;
 		current = current->next;
 	}
 
-	fprintf(stderr, "[err] You outbound the list\n");
-	return NULL;
+	return current;
 }
 /* End Search */
 
 /* Start Insert */
-void push(LinkedList* list, int newData) {	
+void enqueue(LinkedList* list, int newData) {	
 	Node* newTail = newNode(newData);
 
 	if (!list->head) {
@@ -102,7 +120,7 @@ void push(LinkedList* list, int newData) {
 	list->size++;
 }
 
-void add(LinkedList* list, int newData) {
+void push(LinkedList* list, int newData) {
 	Node* newHead = newNode(newData);
 
 	if (!list->head) {
@@ -118,48 +136,25 @@ void add(LinkedList* list, int newData) {
 }
 
 void insert(LinkedList* list, int index, int newData) {
-    if (index == 0) 
-        add(list, newData);
-    else if (index == list->size)
-        push(list, newData);
+	if (index == 0) 
+		push(list, newData);
+	else if (index == list->size)
+		enqueue(list, newData);
+	else {
+		Node* prev = at(list, index-1);
+		Node* target = prev->next;
 
-    else {
-        Node* prev = at(list, index-1);
-        Node* target = prev->next;
+		Node* node = newNode(newData);
 
-        Node* node = newNode(newData);
-
-        prev->next = node;
-        node->next = target;
-        list->size++;
-    }
+		prev->next = node;
+		node->next = target;
+		list->size++;
+	}
 }
 /* End Insert */
 
 /* Start Deletion */
 void pop(LinkedList* list) {
-	Node* prev = list->head;
-	Node* temp = list->tail;
-
-	bool isOneNode = prev == temp;
-
-	while (prev->next != temp && !isOneNode)
-		prev = prev->next;
-
-	if (!isOneNode) {
-		list->tail = prev;
-		list->tail->next = NULL;
-	} 
-	else {
-		list->tail = NULL;
-		list->head = NULL;
-	}
-
-	list->size--;
-	free(temp);
-}
-
-void shift(LinkedList* list) {
 	Node* temp = list->head;
 	list->head = list->head->next;
 	if (!list->head)
@@ -169,9 +164,9 @@ void shift(LinkedList* list) {
 }
 
 // TODO make error handling if index is outbound
-void delete(LinkedList* list, int index) {
+void deleteAt(LinkedList* list, unsigned int index) {
 	if (index == 0) {
-		shift(list);
+		pop(list);
 		return;
 	}
 
@@ -189,8 +184,8 @@ void delete(LinkedList* list, int index) {
 
 
 void printList(LinkedList* list) {
-	if (!list->size) {
-		fprintf(stderr, "[err] List is Empty\n");
+	if (!list || list->size == 0) {
+		fprintf(stderr, "[err] List is Empty/Undefined\n");
 		return;
 	}
 
@@ -203,8 +198,8 @@ void printList(LinkedList* list) {
 }
 
 void freeList(LinkedList* list) {
-	while (list->size)
-		shift(list);
+	while (list && list->size)
+		pop(list);
 
 	free(list);
 }

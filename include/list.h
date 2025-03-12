@@ -19,23 +19,22 @@ Node* newNode(int data);
 LinkedList* newList();
 
 // Getter
-int peek(LinkedList* list);
-int peep(LinkedList* list);
+int peekHead(LinkedList* list);
+int peekTail(LinkedList* list);
 int size(LinkedList* list);
 
 // Searching
 Node* search(LinkedList* list, int target);
-Node* at(LinkedList* list, int index);
+Node* at(LinkedList* list, unsigned int index);
 
 // Insertion
-void add(LinkedList* list, int newData); // Add at front
-void push(LinkedList* list, int newData); // Add at back
+void push(LinkedList* list, int newData); // Add at front
+void enqueue(LinkedList* list, int newData); // Add at back
 void insert(LinkedList* list, int index, int newData); // Add at given index
 
 // Deletion
 void pop(LinkedList* list);
-void shift(LinkedList* list);
-void delete(LinkedList* list, int index);
+void deleteAt(LinkedList* list, unsigned int index);
 
 void printList(LinkedList* list);
 void freeList(LinkedList* list); // De-Initialize
