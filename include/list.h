@@ -5,6 +5,7 @@
 typedef struct Node {
 	int data;
 	struct Node* next;
+    struct Node* prev;
 } Node;
 
 // Linked List
@@ -28,15 +29,17 @@ Node* search(LinkedList* list, int target);
 Node* at(LinkedList* list, unsigned int index);
 
 // Insertion
-void push(LinkedList* list, int newData); // Add at front
-void enqueue(LinkedList* list, int newData); // Add at back
+void pushAtHead(LinkedList* list, int newData); // Add at front
+void pushAtTail(LinkedList* list, int newData); // Add at back
 void insert(LinkedList* list, int index, int newData); // Add at given index
 
 // Deletion
-void pop(LinkedList* list);
+void popAtHead(LinkedList* list); // Delete at front
+void popAtTail(LinkedList* list); // Delete at back
 void deleteAt(LinkedList* list, unsigned int index);
 
+// Misc.
 void printList(LinkedList* list);
-void freeList(LinkedList* list); // De-Initialize
+void freeList(LinkedList* list);
 
 #endif
