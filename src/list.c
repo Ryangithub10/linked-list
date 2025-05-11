@@ -88,13 +88,15 @@ Node* at(LinkedList* list, unsigned int index) {
 	if (index >= list->size) {
 		fprintf(stderr, "[err] outbound index of list");
 		return NULL;
+	} else if (index < 0) {
+		fprintf(stderr, "[err] inbound index of list");
+		return NULL;
 	}
 
 	Node* current = list->head;
 
 	for (int i = 0; i < list->size; i++) {
-		if (i == index)
-			break;
+		if (i == index) break;
 		current = current->next;
 	}
 

@@ -7,6 +7,7 @@
 // DONE Make print format callback for printList()
 // DONE Use size_t for lenght/size related
 // TODO Add Documentation
+// TODO Add error handling for index < 0
 
 #include <stddef.h>
 
