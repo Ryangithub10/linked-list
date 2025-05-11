@@ -3,9 +3,11 @@
 
 // Todo List
 // TODO Make LinkedList accept generic
-// TODO Delete search function
+// DONE Delete search function
 // TODO Make print format callback for printList()
 // TODO Use size_t for lenght/size related
+
+#include <stddef.h>
 
 // Node 
 typedef struct Node {
@@ -18,7 +20,7 @@ typedef struct Node {
 typedef struct LinkedList {
 	Node* head;
 	Node* tail;
-	int size;
+	size_t size;
 } LinkedList;
 
 // Initialize
@@ -28,7 +30,7 @@ LinkedList* newList();
 // Getter
 int peekHead(LinkedList* list);
 int peekTail(LinkedList* list);
-int size(LinkedList* list);
+size_t size(LinkedList* list);
 
 // Displaying
 void printList(LinkedList* list);
@@ -39,12 +41,12 @@ Node* at(LinkedList* list, unsigned int index);
 // Insertion
 void pushAtHead(LinkedList* list, int newData); // Add at front
 void pushAtTail(LinkedList* list, int newData); // Add at back
-void insert(LinkedList* list, int index, int newData);
+void insert(LinkedList* list, int newData, size_t index);
 
 // Deletion
 void popAtHead(LinkedList* list); // Delete at front
 void popAtTail(LinkedList* list); // Delete at back
-void deleteAt(LinkedList* list, unsigned int index);
+void deleteAt(LinkedList* list, size_t index);
 
 // De-Iniatilize
 void freeList(LinkedList* list);

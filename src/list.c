@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stddef.h>
 #include <stdbool.h>
 #include "../include/list.h"
 
@@ -52,7 +53,7 @@ int peekTail(LinkedList* list) {
 	return list->tail->data;
 }
 
-int size(LinkedList* list) {
+size_t size(LinkedList* list) {
 	if (!list) {
 		fprintf(stderr, "[err] List is Undefined");
 		return -1;
@@ -125,7 +126,7 @@ void pushAtTail(LinkedList* list, int newData) {
 	list->size++;
 }
 
-void insert(LinkedList* list, int index, int newData) {
+void insert(LinkedList* list, int newData, size_t index) {
 	if (index == 0) pushAtHead(list, newData);
 	else if (index == list->size) pushAtTail(list, newData);
 	else {
@@ -167,7 +168,7 @@ void popAtTail(LinkedList* list) {
 	free(temp);
 }
 
-void deleteAt(LinkedList* list, unsigned int index) {
+void deleteAt(LinkedList* list, size_t index) {
 	if (index == 0) popAtHead(list);
 	else if (index == list->size - 1) popAtTail(list);
 	else if (index >= list->size) fprintf(stderr, "[err] outbound index of list");
