@@ -15,7 +15,7 @@ Node* newNode(int data) {
 
 	node->data = data;
 	node->next = NULL;
-    node->prev = NULL;
+	node->prev = NULL;
 	
 	return node;
 }
@@ -63,19 +63,19 @@ size_t size(LinkedList* list) {
 /* End Getter */
 
 // Displaying
-void printList(LinkedList* list) {
+void printList(LinkedList* list, void (*printNode)(Node* current)) {
 	if (!list || list->size == 0) {
 		fprintf(stderr, "[err] List is Empty/Undefined\n");
 		return;
 	}
 
 	Node* current = list->head;
-	printf("NULL <-> ");
 	while (current) {
-		printf("%d <-> ", current->data);
+		printNode(current);
 		current = current->next;
 	}
-	printf("NULL\n");
+
+	printf("\n");
 }
 
 // Searching

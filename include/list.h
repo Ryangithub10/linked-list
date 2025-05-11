@@ -4,8 +4,9 @@
 // Todo List
 // TODO Make LinkedList accept generic
 // DONE Delete search function
-// TODO Make print format callback for printList()
-// TODO Use size_t for lenght/size related
+// DONE Make print format callback for printList()
+// DONE Use size_t for lenght/size related
+// TODO Add Documentation
 
 #include <stddef.h>
 
@@ -33,7 +34,7 @@ int peekTail(LinkedList* list);
 size_t size(LinkedList* list);
 
 // Displaying
-void printList(LinkedList* list);
+void printList(LinkedList* list, void (*printNode)(Node* current));
 
 // Searching
 Node* at(LinkedList* list, unsigned int index);
