@@ -131,6 +131,8 @@ void pushAtTail(LinkedList* list, int newData) {
 void insert(LinkedList* list, int newData, size_t index) {
 	if (index == 0) pushAtHead(list, newData);
 	else if (index == list->size) pushAtTail(list, newData);
+	else if (index >= list->size) fprintf(stderr, "[err] outbound index of list");
+	else if (index < 0) fprintf(stderr, "[err] inbound index of list");
 	else {
 		Node* target = at(list, index);
 		Node* prev = target->prev;
@@ -174,6 +176,7 @@ void deleteAt(LinkedList* list, size_t index) {
 	if (index == 0) popAtHead(list);
 	else if (index == list->size - 1) popAtTail(list);
 	else if (index >= list->size) fprintf(stderr, "[err] outbound index of list");
+	else if (index < 0) fprintf(stderr, "[err] inbound index of list");
 	else {
 		Node* target = at(list, index);
 		Node* prev = target->prev;
