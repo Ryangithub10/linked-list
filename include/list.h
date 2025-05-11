@@ -30,22 +30,23 @@ int peekHead(LinkedList* list);
 int peekTail(LinkedList* list);
 int size(LinkedList* list);
 
+// Displaying
+void printList(LinkedList* list);
+
 // Searching
-Node* search(LinkedList* list, int target);
 Node* at(LinkedList* list, unsigned int index);
 
 // Insertion
 void pushAtHead(LinkedList* list, int newData); // Add at front
 void pushAtTail(LinkedList* list, int newData); // Add at back
-void insert(LinkedList* list, int index, int newData); // Add at given index
+void insert(LinkedList* list, int index, int newData);
 
 // Deletion
 void popAtHead(LinkedList* list); // Delete at front
 void popAtTail(LinkedList* list); // Delete at back
 void deleteAt(LinkedList* list, unsigned int index);
 
-// Misc.
-void printList(LinkedList* list);
+// De-Iniatilize
 void freeList(LinkedList* list);
 
 #endif

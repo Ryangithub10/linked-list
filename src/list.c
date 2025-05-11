@@ -61,25 +61,23 @@ int size(LinkedList* list) {
 }
 /* End Getter */
 
-/* Start Search */
-Node* search(LinkedList* list, int target) {
+// Displaying
+void printList(LinkedList* list) {
 	if (!list || list->size == 0) {
-		fprintf(stderr, "[err] List is Empty\n");
-		return NULL;
+		fprintf(stderr, "[err] List is Empty/Undefined\n");
+		return;
 	}
 
 	Node* current = list->head;
-
+	printf("NULL <-> ");
 	while (current) {
-		if (current->data == target)
-			return current;
+		printf("%d <-> ", current->data);
 		current = current->next;
 	}
-
-	fprintf(stderr, "[err] %d not in the list", target);
-	return NULL;
+	printf("NULL\n");
 }
 
+// Searching
 Node* at(LinkedList* list, unsigned int index) {
 	if (!list || list->size == 0) {
 		fprintf(stderr, "[err] List is Empty/Undefined\n");
@@ -101,7 +99,6 @@ Node* at(LinkedList* list, unsigned int index) {
 
 	return current;
 }
-/* End Search */
 
 /* Start Insert */
 void pushAtHead(LinkedList* list, int newData) {
@@ -187,23 +184,9 @@ void deleteAt(LinkedList* list, unsigned int index) {
 }
 /* End Deletion */
 
-
-void printList(LinkedList* list) {
-	if (!list || list->size == 0) {
-		fprintf(stderr, "[err] List is Empty/Undefined\n");
-		return;
-	}
-
-	Node* current = list->head;
-	printf("NULL <-> ");
-	while (current) {
-		printf("%d <-> ", current->data);
-		current = current->next;
-	}
-	printf("NULL\n");
-}
-
+// De-Initialize
 void freeList(LinkedList* list) {
 	while (list && list->size) popAtHead(list);
 	free(list);
 }
+
