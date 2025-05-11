@@ -63,7 +63,7 @@ int size(LinkedList* list) {
 
 /* Start Search */
 Node* search(LinkedList* list, int target) {
-	if (!list->size) {
+	if (!list || list->size == 0) {
 		fprintf(stderr, "[err] List is Empty\n");
 		return NULL;
 	}
@@ -87,7 +87,7 @@ Node* at(LinkedList* list, unsigned int index) {
 	}
 
 	if (index >= list->size) {
-		fprintf(stderr, "[err] you outbound the list; the list size is %d", list->size);
+		fprintf(stderr, "[err] outbound index of list");
 		return NULL;
 	}
 
@@ -107,13 +107,10 @@ Node* at(LinkedList* list, unsigned int index) {
 void pushAtHead(LinkedList* list, int newData) {
 	Node* newHead = newNode(newData);
 
-	if (!list->head) {
-		newHead->next = list->head;
-		list->tail = newHead;
-	} else {
-        newHead->next = list->head;
-        list->head->prev = newHead;
-    }
+	newHead->next = list->head;
+
+	if (!list->head) list->tail = newHead;
+	else list->head->prev = newHead;
 
 	list->head = newHead;
 	list->size++;
@@ -122,31 +119,30 @@ void pushAtHead(LinkedList* list, int newData) {
 void pushAtTail(LinkedList* list, int newData) {	
 	Node* newTail = newNode(newData);
 
-	if (!list->head) {
-		list->head = newTail;
-		list->tail = newTail;
-	} else {
-		Node* prev = list->tail;
-		list->tail = newTail;
-		prev->next = list->tail;
-		list->tail->prev = prev;
-	}
+	newTail->prev = list->tail;
 
+	if (!list->head) list->head = newTail;
+	else list->tail->next = newTail;
+
+	list->tail = newTail;
 	list->size++;
 }
 
 void insert(LinkedList* list, int index, int newData) {
 	if (index == 0) pushAtHead(list, newData);
 	else if (index == list->size) pushAtTail(list, newData);
-
 	else {
-		Node* prev = at(list, index-1);
-		Node* target = prev->next;
+		Node* target = at(list, index);
+		Node* prev = target->prev;
 
 		Node* node = newNode(newData);
 
-		prev->next = node;
 		node->next = target;
+		node->prev = prev;
+
+		prev->next = node;
+		target->prev = node;
+
 		list->size++;
 	}
 }
@@ -166,7 +162,7 @@ void popAtHead(LinkedList* list) {
 void popAtTail(LinkedList* list) {
 	Node* temp = list->tail;
 	list->tail = list->tail->prev;
-    list->tail->next = NULL;
+	list->tail->next = NULL;
 
 	if (!list->tail) list->head = NULL;
 
@@ -175,25 +171,19 @@ void popAtTail(LinkedList* list) {
 }
 
 void deleteAt(LinkedList* list, unsigned int index) {
-	if (index == 0) {
-		popAtHead(list);
-		return;
+	if (index == 0) popAtHead(list);
+	else if (index == list->size - 1) popAtTail(list);
+	else if (index >= list->size) fprintf(stderr, "[err] outbound index of list");
+	else {
+		Node* target = at(list, index);
+		Node* prev = target->prev;
+		Node* next = target->next;
+
+		prev->next = prev->next->next;
+		next->prev = next->prev->prev;
+		list->size--;
+		free(target);
 	}
-
-    if (index >= list->size) {
-        fprintf(stderr, "[err] you outbound the list; list size is %d\n", list->size);
-        return;
-    }
-
-	Node* target = at(list, index);
-	Node* prev = list->head;
-
-	while (prev->next != target)
-		prev = prev->next;
-
-	prev->next = prev->next->next;
-	list->size--;
-	free(target);
 }
 /* End Deletion */
 
@@ -205,7 +195,7 @@ void printList(LinkedList* list) {
 	}
 
 	Node* current = list->head;
-	printf("NULL ");
+	printf("NULL <-> ");
 	while (current) {
 		printf("%d <-> ", current->data);
 		current = current->next;

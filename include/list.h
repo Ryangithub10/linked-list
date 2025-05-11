@@ -1,6 +1,12 @@
 #ifndef LIST_H
 #define LIST_H
 
+// Todo List
+// TODO Make LinkedList accept generic
+// TODO Delete search function
+// TODO Make print format callback for printList()
+// TODO Use size_t for lenght/size related
+
 // Node 
 typedef struct Node {
 	int data;
