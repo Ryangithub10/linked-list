@@ -2,18 +2,23 @@
 #define LIST_H
 
 // Todo List
-// TODO Make LinkedList accept generic
+// DONE Make LinkedList accept generic
 // DONE Delete search function
 // DONE Make print format callback for printList()
-// DONE Use size_t for lenght/size related
+// DONE Use size_t for length/size related
 // TODO Add Documentation
-// TODO Add error handling for index < 0
+// TODO Add NULL handling at insertion function
 
 #include <stddef.h>
 
+// MACRO
+#define GET_NODE_DATA(type, node) (*((type*)((node)->data)))
+#define PEEK_HEAD(type, list) *(type*)peekHead(list)
+#define PEEK_TAIL(type, list) *(type*)peekTail(list)
+
 // Node 
 typedef struct Node {
-	int data;
+	void* data;
 	struct Node* next;
     struct Node* prev;
 } Node;
@@ -22,17 +27,18 @@ typedef struct Node {
 typedef struct LinkedList {
 	Node* head;
 	Node* tail;
-	size_t size;
+	size_t length;
+	size_t nodeSize;
 } LinkedList;
 
 // Initialize
-Node* newNode(int data);
-LinkedList* newList();
+Node* newNode(void* data, size_t dataSize);
+LinkedList* newList(size_t dataSize);
 
 // Getter
-int peekHead(LinkedList* list);
-int peekTail(LinkedList* list);
-size_t size(LinkedList* list);
+void* peekHead(const LinkedList* list);
+void* peekTail(const LinkedList* list);
+size_t lengthList(const LinkedList* list);
 
 // Displaying
 void printList(LinkedList* list, void (*printNode)(Node* current));
@@ -41,9 +47,9 @@ void printList(LinkedList* list, void (*printNode)(Node* current));
 Node* at(LinkedList* list, unsigned int index);
 
 // Insertion
-void pushAtHead(LinkedList* list, int newData); // Add at front
-void pushAtTail(LinkedList* list, int newData); // Add at back
-void insert(LinkedList* list, int newData, size_t index);
+void pushAtHead(LinkedList* list, void* newData); // Add at front
+void pushAtTail(LinkedList* list, void* newData); // Add at back
+void insert(LinkedList* list, void* newData, size_t index);
 
 // Deletion
 void popAtHead(LinkedList* list); // Delete at front
