@@ -6,6 +6,7 @@
 // DONE Delete search function
 // DONE Make print format callback for printList()
 // DONE Use size_t for length/size related
+// TODO Add NULL handling for insertion function
 // TODO Add Documentation
 
 #include <stddef.h>
@@ -19,7 +20,7 @@
 typedef struct Node {
 	void* data;
 	struct Node* next;
-    struct Node* prev;
+	struct Node* prev;
 } Node;
 
 // Linked List
