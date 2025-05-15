@@ -7,14 +7,13 @@
 // DONE Make print format callback for printList()
 // DONE Use size_t for length/size related
 // TODO Add Documentation
-// TODO Add NULL handling at insertion function
 
 #include <stddef.h>
 
 // MACRO
 #define GET_NODE_DATA(type, node) (*((type*)((node)->data)))
-#define PEEK_HEAD(type, list) *(type*)peekHead(list)
-#define PEEK_TAIL(type, list) *(type*)peekTail(list)
+#define PEEK_HEAD(type, list) (*(type*)peekHead(list))
+#define PEEK_TAIL(type, list) (*(type*)peekTail(list))
 
 // Node 
 typedef struct Node {

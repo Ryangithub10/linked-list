@@ -14,7 +14,7 @@ Node* newNode(void* data, size_t dataSize) {
 	node->data = malloc(dataSize);
 	if (!node->data) {
 		fprintf(stderr, "[err] Failed to allocate memory");
-        free(node);
+		free(node);
 		return NULL;
 	}
 
@@ -63,7 +63,7 @@ void* peekTail(const LinkedList* list) {
 size_t lengthList(const LinkedList* list) {
 	if (!list) {
 		fprintf(stderr, "[err] List is Undefined");
-        return 0;
+		return 0;
 	}
 	return list->length;
 }
