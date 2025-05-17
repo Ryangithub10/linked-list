@@ -49,7 +49,7 @@ Node* at(LinkedList* list, size_t index);
 // Insertion
 void pushAtHead(LinkedList* list, void* newData); // Add at front
 void pushAtTail(LinkedList* list, void* newData); // Add at back
-void insert(LinkedList* list, void* newData, size_t index);
+void insertAt(LinkedList* list, void* newData, size_t index);
 
 // Deletion
 void popAtHead(LinkedList* list); // Delete at front

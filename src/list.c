@@ -134,7 +134,7 @@ void pushAtTail(LinkedList* list, void* newData) {
 	list->length++;
 }
 
-void insert(LinkedList* list, void* newData, size_t index) {
+void insertAt(LinkedList* list, void* newData, size_t index) {
 	if (index == 0) pushAtHead(list, newData);
 	else if (index == list->length) pushAtTail(list, newData);
 	else if (index >= list->length) fprintf(stderr, "[err] Index %zu out of bounds (length: %zu)", index, list->length);
