@@ -109,6 +109,11 @@ Node* at(LinkedList* list, unsigned int index) {
 void pushAtHead(LinkedList* list, void* newData) {
 	Node* newHead = newNode(newData, list->nodeSize);
 
+	if (newHead == NULL) {
+		fprintf(stderr, "[err] fail to push at head\n");
+		return;
+	}
+
 	newHead->next = list->head;
 
 	if (!list->head) list->tail = newHead;
@@ -120,6 +125,11 @@ void pushAtHead(LinkedList* list, void* newData) {
 
 void pushAtTail(LinkedList* list, void* newData) {	
 	Node* newTail = newNode(newData, list->nodeSize);
+
+	if (newTail == NULL) {
+		fprintf(stderr, "[err] fail to push at tail\n");
+		return;
+	}
 
 	newTail->prev = list->tail;
 
@@ -139,6 +149,11 @@ void insert(LinkedList* list, void* newData, size_t index) {
 		Node* prev = target->prev;
 
 		Node* node = newNode(newData, list->nodeSize);
+
+		if (node == NULL) {
+			fprintf(stderr, "[err] fail to insert new node\n");
+			return;
+		}
 
 		node->next = target;
 		node->prev = prev;
