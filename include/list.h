@@ -44,7 +44,7 @@ size_t lengthList(const LinkedList* list);
 void printList(LinkedList* list, void (*printNode)(Node* current));
 
 // Searching
-Node* at(LinkedList* list, unsigned int index);
+Node* at(LinkedList* list, size_t index);
 
 // Insertion
 void pushAtHead(LinkedList* list, void* newData); // Add at front

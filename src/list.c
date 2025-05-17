@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <strings.h>
 #include "../include/list.h"
 
 /* Start Init */
@@ -86,14 +87,14 @@ void printList(LinkedList* list, void (*printNode)(Node* current)) {
 }
 
 // Searching
-Node* at(LinkedList* list, unsigned int index) {
-	if (!list || list->length == 0) {
+Node* at(LinkedList* list, size_t index) {
+	if (list == NULL || list->length == 0) {
 		fprintf(stderr, "[err] List is Empty/Undefined\n");
 		return NULL;
 	}
 
 	if (index >= list->length) {
-		fprintf(stderr, "[err] outbound index of list");
+		fprintf(stderr, "[err] Index %zu out of bounds (length: %zu)", index, list->length);
 		return NULL;
 	} 
 
@@ -143,7 +144,7 @@ void pushAtTail(LinkedList* list, void* newData) {
 void insert(LinkedList* list, void* newData, size_t index) {
 	if (index == 0) pushAtHead(list, newData);
 	else if (index == list->length) pushAtTail(list, newData);
-	else if (index >= list->length) fprintf(stderr, "[err] outbound index of list");
+	else if (index >= list->length) fprintf(stderr, "[err] Index %zu out of bounds (length: %zu)", index, list->length);
 	else {
 		Node* target = at(list, index);
 		Node* prev = target->prev;
@@ -194,7 +195,7 @@ void popAtTail(LinkedList* list) {
 void deleteAt(LinkedList* list, size_t index) {
 	if (index == 0) popAtHead(list);
 	else if (index == list->length - 1) popAtTail(list);
-	else if (index >= list->length) fprintf(stderr, "[err] outbound index of list");
+	else if (index >= list->length) fprintf(stderr, "[err] Index %zu out of bounds (length: %zu)", index, list->length);
 	else {
 		Node* target = at(list, index);
 		Node* prev = target->prev;
@@ -204,7 +205,7 @@ void deleteAt(LinkedList* list, size_t index) {
 		next->prev = prev;
 
 		list->length--;
-        free(target->data);
+		free(target->data);
 		free(target);
 	}
 }
