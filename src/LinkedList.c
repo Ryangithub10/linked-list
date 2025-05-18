@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "../include/list.h"
+#include "../include/LinkedList.h"
 
 /* Start Init */
 Node* newNode(void* data, size_t dataSize) {
